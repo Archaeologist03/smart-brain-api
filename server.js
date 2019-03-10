@@ -17,7 +17,7 @@ const db = knex({
 db.select('*')
   .from('users')
   .then(data => {
-    console.log(data);
+    // console.log(data);
   });
 
 const app = express();
@@ -64,14 +64,14 @@ app.post('/signin', (req, res) => {
     'apples',
     '$2a$10$qVZRCLs4nU290B.DPT4JGu7na4J6SPCYxIHGd0O.2a2X/JKxyk6jW',
     function(err, res) {
-      console.log(res);
+      // console.log(res);
     },
   );
   bcrypt.compare(
     'veggies',
     '$2a$10$qVZRCLs4nU290B.DPT4JGu7na4J6SPCYxIHGd0O.2a2X/JKxyk6jW',
     function(err, res) {
-      console.log(res);
+      // console.log(res);
     },
   );
   if (
@@ -102,16 +102,19 @@ app.post('/register', (req, res) => {
 
 app.get('/profile/:id', (req, res) => {
   const { id } = req.params;
-  let found = false;
-  database.users.forEach(user => {
-    if (user.id === id) {
-      return res.json(user);
-      found = true;
-    }
-  });
-  if (!found) {
-    res.status(400).json('not found');
-  }
+  db.select('*')
+    .from('users')
+    .where({
+      id,
+    })
+    .then(user => {
+      if (user.length > 0) {
+        res.json(user[0]);
+      } else {
+        res.status(400).json('Not found');
+      }
+    })
+    .catch(err => res.status(400).json('Error getting user'));
 });
 
 app.put('/image', (req, res) => {
