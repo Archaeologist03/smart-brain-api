@@ -2,7 +2,19 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
+const knex = require('knex');
 
+const postgres = knex({
+  client: 'pg',
+  connection: {
+    host: '127.0.0.1',
+    user: 'archaeologist',
+    password: 'bandera123', // or bandera..
+    database: 'smart-brain-db',
+  },
+});
+
+console.log(postgres.select('*').from('users'));
 
 const app = express();
 
@@ -44,13 +56,20 @@ app.get('/', (req, res) => {
 //SINGIN
 app.post('/signin', (req, res) => {
   // Load hash from your password DB.
-  bcrypt.compare('apples', '$2a$10$qVZRCLs4nU290B.DPT4JGu7na4J6SPCYxIHGd0O.2a2X/JKxyk6jW', function(err, res) {
-    console.log(res);
-    
-  });
-  bcrypt.compare('veggies', '$2a$10$qVZRCLs4nU290B.DPT4JGu7na4J6SPCYxIHGd0O.2a2X/JKxyk6jW', function(err, res) {
-    console.log(res);
-  });
+  bcrypt.compare(
+    'apples',
+    '$2a$10$qVZRCLs4nU290B.DPT4JGu7na4J6SPCYxIHGd0O.2a2X/JKxyk6jW',
+    function(err, res) {
+      console.log(res);
+    },
+  );
+  bcrypt.compare(
+    'veggies',
+    '$2a$10$qVZRCLs4nU290B.DPT4JGu7na4J6SPCYxIHGd0O.2a2X/JKxyk6jW',
+    function(err, res) {
+      console.log(res);
+    },
+  );
   if (
     req.body.email === database.users[0].email &&
     req.body.password === database.users[0].password
