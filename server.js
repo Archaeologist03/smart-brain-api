@@ -12,10 +12,11 @@ const image = require('./controllers/image');
 const db = knex({
   client: 'pg',
   connection: {
-    host: 'postgresql-spherical-33492',
-    user: 'archaeologist',
-    password: 'bandera',
-    database: 'smart-brain-db',
+    host: process.env.DATABASE_URL,
+    ssl: true,
+    // user: 'archaeologist',
+    // password: 'bandera',
+    // database: 'smart-brain-db',
   },
 });
 
