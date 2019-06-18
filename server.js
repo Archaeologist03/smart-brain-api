@@ -3,29 +3,36 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 const knex = require('knex');
+const morgan = require('morgan');
 
 const register = require('./controllers/register');
 const profile = require('./controllers/profile');
 const signin = require('./controllers/signin');
 const image = require('./controllers/image');
 
+// const db = knex({
+//   client: 'pg',
+//   connection: {
+//     connectionString: process.env.DATABASE_URL,
+//     ssl: true,
+//     user: 'archaeologist',
+//     password: 'bandera',
+//     database: 'smart-brain-db',
+//   },
+// });
+
 const db = knex({
   client: 'pg',
-  connection: {
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-    // user: 'archaeologist',
-    // password: 'bandera',
-    // database: 'smart-brain-db',
-  },
+  connection: process.env.POSTGRES_URI,
 });
 
-db.select('*')
-  .from('users')
-  .then(data => {});
+// db.select('*')
+//   .from('users')
+//   .then(data => {});
 
 const app = express();
 
+app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -53,8 +60,11 @@ app.post('/imageurl', (req, res) => {
   image.handleApiCall(req, res);
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`app is running on port ${process.env.PORT}`);
+const PORT = process.env.PORT || 3000;
+console.log(PORT);
+
+app.listen(PORT, () => {
+  console.log(`app is running on port ${PORT}`);
 });
 
 /*

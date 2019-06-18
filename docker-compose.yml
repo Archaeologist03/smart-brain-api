@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  # Backend API
+
+  smart-brain-api:
+    container_name: backend
+    # image: node:11.15.0
+    build: ./
+    command: npm start
+    working_dir: /usr/src/smart-brain-api
+    environment:
+      POSTGRES_URI: postgres://ilija:bandera@postgres:5432/smart-brain-db
+    links:
+      - postgres
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/usr/src/smart-brain-api
+
+  # Postgres
+  postgres:
+    environment:
+      POSTGRES_USER: archaeologist
+      POSTGRES_PASSWORD: bandera
+      POSTGRES_DB: smart-brain-db
+      POSTGRES_HOST: postgres
+    build: ./postgres
+    ports:
+      - '5432:5432'
