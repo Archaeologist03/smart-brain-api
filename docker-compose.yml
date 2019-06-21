@@ -10,7 +10,7 @@ services:
     command: npm start
     working_dir: /usr/src/smart-brain-api
     environment:
-      POSTGRES_URI: postgres://ilija:bandera@postgres:5432/smart-brain-db
+      POSTGRES_URI: postgres://archaeologist:bandera@postgres:5432/smart-brain-db
     links:
       - postgres
     ports:
