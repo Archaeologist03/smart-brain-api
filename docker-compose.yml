@@ -11,6 +11,7 @@ services:
     working_dir: /usr/src/smart-brain-api
     environment:
       POSTGRES_URI: postgres://archaeologist:bandera@postgres:5432/smart-brain-db
+      JWT_SECRET: jwt-secret123
     links:
       - postgres
     ports:

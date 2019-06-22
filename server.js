@@ -32,7 +32,7 @@ const db = knex({
 
 const app = express();
 
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/signin', (req, res) => {
-  signin.handleSignin(req, res, db, bcrypt);
+  signin.signinAuthentication(req, res, db, bcrypt);
 });
 
 app.post('/register', (req, res) => {

@@ -23,8 +23,6 @@ const handleProfileUpdate = (req, res, db) => {
     .update({ name: name })
     .then(resp => {
       if (resp) {
-        console.log(name, 12121);
-
         res.json('success');
       } else {
         res.status(400).json('Unable to update');
