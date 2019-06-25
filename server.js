@@ -47,7 +47,7 @@ app.post('/signin', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-  register.handleRegister(req, res, db, bcrypt);
+  register.registerAuthentication(req, res, db, bcrypt);
 });
 
 app.get('/profile/:id', auth.requireAuth, (req, res) => {
@@ -67,7 +67,6 @@ app.post('/imageurl', auth.requireAuth, (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-console.log(PORT);
 
 app.listen(PORT, () => {
   console.log(`app is running on port ${PORT}`);
