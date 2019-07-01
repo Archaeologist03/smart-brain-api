@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 const knex = require('knex');
-const morgan = require('morgan');
 
 const register = require('./controllers/register');
 const profile = require('./controllers/profile');
@@ -12,25 +11,10 @@ const image = require('./controllers/image');
 
 const auth = require('./controllers/authorization');
 
-// const db = knex({
-//   client: 'pg',
-//   connection: {
-//     connectionString: process.env.DATABASE_URL,
-//     ssl: true,
-//     user: 'archaeologist',
-//     password: 'bandera',
-//     database: 'smart-brain-db',
-//   },
-// });
-
 const db = knex({
   client: 'pg',
   connection: process.env.POSTGRES_URI,
 });
-
-// db.select('*')
-//   .from('users')
-//   .then(data => {});
 
 const app = express();
 
@@ -71,12 +55,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`app is running on port ${PORT}`);
 });
-
-/*
-/ --> res = this is working
-/signin --> POST = success/fail
-/register --> POST = user
-/profile/:userid --> GET = user
-/image --> PUT = user
-
-*/

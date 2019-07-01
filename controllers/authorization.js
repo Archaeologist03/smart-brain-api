@@ -11,8 +11,6 @@ const requireAuth = (req, res, next) => {
     }
   });
 
-  console.log('you shall pass.. auth');
-
   return next();
 };
 
